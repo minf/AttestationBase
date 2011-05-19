@@ -94,7 +94,9 @@ implementation {
     if(len == sizeof(AttestationResponseMsg)) {
       AttestationResponseMsg* in = (AttestationResponseMsg*)payload;
 
-      if(in->checksum != 0x552bbe2296e34189) {
+      time = (call Timer0.getNow()) - time;
+
+      if(in->checksum != 0x552bbe2296e34189 && time < 50000) {
         call Leds.led0Toggle();
       } else {
         call Leds.led1Toggle();
